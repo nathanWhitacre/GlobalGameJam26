@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class HealthScript : MonoBehaviour
 {
-    [SerializeField] private bool alive;
-    [SerializeField] private float gasResistMax; // measured in seconds
+    private bool alive; // If a unit is alive or dead
+    [SerializeField] private float gasResistMax; // Measured in seconds
     [SerializeField] private float gasResistVariation; // true max resistance is (gasResistMax +- gasResistVariation)
-    private float gasResist;
+    private float gasResist;    // Remaining value of gas resistance meter in seconds
     private float gasRecoveryStart;
     private bool inGas;
     private bool inGasRecovery;
@@ -45,14 +45,19 @@ public class HealthScript : MonoBehaviour
         }
     }
 
-    // Called when a unit dies
+    /// <summary>
+    /// Called when a unit dies
+    /// </summary>
     public void Kill()
     {
         this.alive = false;
         // Do more here
     }
 
-    // Called when a unit gets hit by something
+    /// <summary>
+    /// Called when a unit gets hit by something
+    /// </summary>
+    /// <param name="killChance">Chance of hit from 0.0 to 1.0</param>
     public void Hit(float killChance)
     {
         if (Random.value < killChance)
@@ -61,17 +66,27 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns whether a unit is in gas cloud
+    /// </summary>
+    /// <returns>Bool of if unit is in gas cloud</returns>
     public bool isGassed()
     {
         return inGas;
     }
 
+    /// <summary>
+    /// Called when unit enters gas cloud
+    /// </summary>
     public void EnterGas()
     {
         inGas = true;
         inGasRecovery = false;
     }
 
+    /// <summary>
+    /// Called when unit exits gas cloud
+    /// </summary>
     public void ExitGas()
     {
         inGas = false;
