@@ -40,6 +40,8 @@ public class ItemManager : MonoBehaviour
     [SerializeField] public int maxReinforcements;
     [HideInInspector] public int currentReinforcements;
 
+    [SerializeField] public int currentMasks;
+
 
 
     private void Awake()
@@ -59,6 +61,7 @@ public class ItemManager : MonoBehaviour
         currentFrags = startingFrags;
         currentBarrages = startingBarrages;
         currentReinforcements = startingReinforcements;
+        currentMasks = 0;
     }
 
     // Update is called once per frame
