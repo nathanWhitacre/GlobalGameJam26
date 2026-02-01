@@ -70,6 +70,7 @@ public class HealthScript : MonoBehaviour
         manager.SetCurrentState(TrooperManager.TrooperState.DEAD);
         GetComponent<Collider>().enabled = false;
         manager.spriteRenderer.sortingOrder = 0;
+        if (manager.deathSFX != null) manager.deathSFX.Play();
         //Destroy(gameObject);
     }
 

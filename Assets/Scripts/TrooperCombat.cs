@@ -130,6 +130,7 @@ public class TrooperCombat : MonoBehaviour
     {
         if (targetOpponent == null) return;
         if (manager.GetAnimator() != null) manager.GetAnimator().SetTrigger("Shoot");
+        if (manager.rifleSFX != null) manager.rifleSFX.Play();
         bool hit = targetOpponent.GetComponent<TrooperManager>().trooperHealth.Hit(rifleHitChance);
         Vector3 hitPosition = targetOpponent.transform.position;
         if (!hit)

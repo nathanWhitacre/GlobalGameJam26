@@ -144,6 +144,27 @@ public class TeamManager : MonoBehaviour
     }
 
 
+
+    public GameObject GetRightMostTrooper(Team team)
+    {
+        List<GameObject> troopers = GetTrooperList(team);
+        if (troopers == null || troopers.Count <= 0) return null;
+
+        GameObject rightMostTrooper = troopers[0];
+        float highestX = rightMostTrooper.transform.position.x;
+        foreach (GameObject trooper in troopers)
+        {
+            float trooperX = trooper.transform.position.x;
+            if (trooperX > highestX)
+            {
+                highestX = trooperX;
+                rightMostTrooper = trooper;
+            }
+        }
+        return rightMostTrooper;
+    }
+
+
     public enum Team
     {
         FRIENDLY,

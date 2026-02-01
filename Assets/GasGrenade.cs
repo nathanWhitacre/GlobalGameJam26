@@ -30,6 +30,8 @@ public class GasGrenade : MonoBehaviour
     [SerializeField] private GasState currentState;
     [SerializeField] private TeamManager.Team team;
 
+    [SerializeField] public AudioSource gasSFX;
+
 
 
     private void Awake()
@@ -37,7 +39,6 @@ public class GasGrenade : MonoBehaviour
         gasSpriteRenderer = gasSprite.GetComponent<SpriteRenderer>();
         gasCollider = GetComponent<SphereCollider>();
         gasCollider.enabled = false;
-        //gasCloudAlpha = gasSpriteRenderer.color.a;
 
         SetRadius(0f, 0f);
         SetCloudAlpha(0f);
@@ -79,6 +80,7 @@ public class GasGrenade : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
                 currentState = GasState.DELAYED;
+                if (gasSFX != null) gasSFX.Play();
             }
         }
 

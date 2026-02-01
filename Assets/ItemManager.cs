@@ -5,10 +5,22 @@ public class ItemManager : MonoBehaviour
     public static ItemManager instance;
 
     [SerializeField] private GameObject gasBombPrefab;
-    [SerializeField] private float enemyGasBombSpawnDelay;
+    [SerializeField] private float enemyGasBombSpawnMinDelay;
+    [SerializeField] private float enemyGasBombSpawnMaxDelay;
+    [SerializeField] private float enemyGasBombSpawnChance;
     [SerializeField] private Vector3 enemyGasBombSpawnBottomLeft;
     [SerializeField] private Vector3 enemyGasBombSpawnTopRight;
     private float enemyGasBombSpawnTimer;
+
+
+
+    [SerializeField] private GameObject fragPrefab;
+    [SerializeField] private float enemyFragSpawnMinDelay;
+    [SerializeField] private float enemyFragSpawnMaxDelay;
+    [SerializeField] private float enemyFragSpawnChance;
+    [SerializeField] private Vector3 enemyFragSpawnBottomLeft;
+    [SerializeField] private Vector3 enemyFragSpawnTopRight;
+    private float enemyFragSpawnTimer;
 
 
 
@@ -22,7 +34,8 @@ public class ItemManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        enemyGasBombSpawnTimer = enemyGasBombSpawnDelay;
+        enemyGasBombSpawnTimer = Mathf.Lerp(enemyGasBombSpawnMinDelay, enemyGasBombSpawnMaxDelay, Random.value);
+        enemyFragSpawnTimer = Mathf.Lerp(enemyFragSpawnMinDelay, enemyFragSpawnMaxDelay, Random.value);
     }
 
     // Update is called once per frame
@@ -33,8 +46,24 @@ public class ItemManager : MonoBehaviour
             enemyGasBombSpawnTimer -= Time.deltaTime;
             if (enemyGasBombSpawnTimer <= 0f)
             {
-                enemyGasBombSpawnTimer = enemyGasBombSpawnDelay;
-                SpawnGasBomb(GetEnemyGasBombSpawnPoint(), TeamManager.Team.ENEMY);
+                enemyGasBombSpawnTimer = Mathf.Lerp(enemyGasBombSpawnMinDelay, enemyGasBombSpawnMaxDelay, Random.value);
+                if (Random.value <= enemyGasBombSpawnChance)
+                {
+                    SpawnGasBomb(GetEnemyGasBombSpawnPoint(), TeamManager.Team.ENEMY);
+                }
+            }
+        }
+
+        if (enemyFragSpawnTimer > 0f)
+        {
+            enemyFragSpawnTimer -= Time.deltaTime;
+            if (enemyFragSpawnTimer <= 0f)
+            {
+                enemyFragSpawnTimer = Mathf.Lerp(enemyFragSpawnMinDelay, enemyFragSpawnMaxDelay, Random.value);
+                if (Random.value <= enemyFragSpawnChance)
+                {
+                    SpawnFrag(GetEnemyFragSpawnPoint(), TeamManager.Team.ENEMY);
+                }
             }
         }
     }
@@ -51,9 +80,27 @@ public class ItemManager : MonoBehaviour
 
 
 
+    private Vector3 GetEnemyFragSpawnPoint()
+    {
+        float xPoint = Mathf.Lerp(enemyFragSpawnBottomLeft.x, enemyFragSpawnTopRight.x, Random.value);
+        float zPoint = Mathf.Lerp(enemyFragSpawnBottomLeft.z, enemyFragSpawnTopRight.z, Random.value);
+        Vector3 spawnPoint = new Vector3(xPoint, 0.5f, zPoint);
+        return spawnPoint;
+    }
+
+
+
     public void SpawnGasBomb(Vector3 position, TeamManager.Team team)
     {
         GameObject gasBomb = Instantiate(gasBombPrefab, position, Quaternion.identity);
         gasBomb.GetComponent<GasGrenade>().StartThrow(team);
+    }
+
+
+
+    public void SpawnFrag(Vector3 position, TeamManager.Team team)
+    {
+        GameObject frag = Instantiate(fragPrefab, position, Quaternion.identity);
+        frag.GetComponent<FragGrenade>().StartThrow(team);
     }
 }

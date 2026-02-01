@@ -21,6 +21,8 @@ public class TroopMovement : MonoBehaviour
     private Vector3 targetVelocity;
 
     private TrooperManager manager;
+
+    private float footstepTimer;
     
 
 
@@ -28,6 +30,7 @@ public class TroopMovement : MonoBehaviour
     void Start()
     {
         manager = GetComponent<TrooperManager>();
+        footstepTimer = 0.01f;
     }
 
 
@@ -37,6 +40,7 @@ public class TroopMovement : MonoBehaviour
     {
         UpdateTargetVelocity();
         Move();
+        PlayFootstepSFX();
     }
 
 
@@ -78,6 +82,27 @@ public class TroopMovement : MonoBehaviour
             velocity = velocity.normalized * moveSpeed;
         }
         transform.position += (velocity * Time.deltaTime);
+    }
+
+
+
+    private void PlayFootstepSFX()
+    {
+        if (!(manager.GetCurrentState() == TrooperManager.TrooperState.MOVING || manager.GetCurrentState() == TrooperManager.TrooperState.FLEEING))
+        {
+            footstepTimer = 0.01f;
+            return;
+        }
+
+        if (footstepTimer > 0f)
+        {
+            footstepTimer -= Time.deltaTime;
+            if (footstepTimer <= 0f)
+            {
+                footstepTimer = 0.5f;
+                if (manager.footstepSFX != null) manager.footstepSFX.Play();
+            }
+        }
     }
 
 

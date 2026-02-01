@@ -19,6 +19,10 @@ public class TrooperManager : MonoBehaviour
 
     [SerializeField] private TrooperState currentState;
 
+    [SerializeField] public AudioSource rifleSFX;
+    [SerializeField] public AudioSource footstepSFX;
+    [SerializeField] public AudioSource deathSFX;
+
 
 
     private void Awake()

@@ -33,6 +33,11 @@ public class InputManager : MonoBehaviour
             HandleLeftClick();
         }
 
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            HandleFrag();
+        }
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             HandleGasBomb();
@@ -79,6 +84,19 @@ public class InputManager : MonoBehaviour
         {
             trooper.GetComponent<TrooperManager>().EquipMask(true);
         }
+    }
+
+
+
+    private void HandleFrag()
+    {
+        Vector3 fragPosition = Vector3.zero;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        {
+            fragPosition = hit.point;
+        }
+        ItemManager.instance.SpawnFrag(fragPosition, TeamManager.Team.FRIENDLY);
     }
 
 
