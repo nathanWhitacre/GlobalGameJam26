@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 using Unity.VisualScripting;
+=======
+
+>>>>>>> Stashed changes
 using UnityEngine;
 using static TeamManager;
 
