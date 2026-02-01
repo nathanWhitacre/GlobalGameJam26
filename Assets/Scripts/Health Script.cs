@@ -13,9 +13,12 @@ public class HealthScript : MonoBehaviour
     private bool inGasRecovery;
     [SerializeField] private float deathTimeVariability;   // Necessary to add slight random offset in death time
 
+    private TrooperManager manager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        manager = GetComponent<TrooperManager>();
         alive = true;
         gasResistMax = gasResistMax + (Random.Range(-1, 1) * gasResistVariation);
         gasResist = gasResistMax;
@@ -63,18 +66,22 @@ public class HealthScript : MonoBehaviour
     private void DeathHandling()
     {
         // Do something here
+        TeamManager.instance.GetTrooperList(manager.GetTeam()).Remove(gameObject);
+        Destroy(gameObject);
     }
 
     /// <summary>
     /// Called when a trooper gets hit by something
     /// </summary>
     /// <param name="killChance">Chance of hit from 0.0 to 1.0</param>
-    public void Hit(float killChance)
+    public bool Hit(float killChance)
     {
         if (Random.value < killChance)
         {
             this.Kill();
+            return true;
         }
+        return false;
     }
 
     /// <summary>

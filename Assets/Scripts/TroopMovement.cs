@@ -49,7 +49,7 @@ public class TroopMovement : MonoBehaviour
         if (manager.GetCurrentState() == TrooperManager.TrooperState.MOVING ||
             manager.GetCurrentState() == TrooperManager.TrooperState.FLEEING)
         {
-            targetVelocity = moveSpeed * GetDirectionToTarget(currentTargetPosition);
+            targetVelocity = moveSpeed * manager.GetDirectionToTarget(currentTargetPosition);
         }
 
         if ((manager.GetCurrentState() == TrooperManager.TrooperState.MOVING || manager.GetCurrentState() == TrooperManager.TrooperState.FLEEING)
@@ -87,11 +87,13 @@ public class TroopMovement : MonoBehaviour
 
 
 
+    /*
     private Vector3 GetDirectionToTarget(Vector3 target)
     {
         Vector3 dir = target - transform.position;
         return Vector3.Normalize(dir);
     }
+    */
 
 
 
@@ -99,7 +101,7 @@ public class TroopMovement : MonoBehaviour
     {
         if (manager != null && manager.GetCurrentState() == TrooperManager.TrooperState.FIGHTING)
         {
-            float angle = Vector3.Angle(GetDirectionToTarget(position), GetDirectionToTarget(manager.trooperCombat.GetTargetOpponent().transform.position));
+            float angle = Vector3.Angle(manager.GetDirectionToTarget(position), manager.GetDirectionToTarget(manager.trooperCombat.GetTargetOpponent().transform.position));
             if (angle >= minRetreatAngle)
             {
                 manager.SetCurrentState(TrooperManager.TrooperState.FLEEING);
@@ -107,7 +109,7 @@ public class TroopMovement : MonoBehaviour
         }
         else if (manager != null && manager.GetCurrentState() == TrooperManager.TrooperState.FLEEING)
         {
-            float angle = Vector3.Angle(GetDirectionToTarget(position), GetDirectionToTarget(currentPositionOrder));
+            float angle = Vector3.Angle(manager.GetDirectionToTarget(position), manager.GetDirectionToTarget(currentPositionOrder));
             if (angle >= minRetreatAngle)
             {
                 manager.SetCurrentState(TrooperManager.TrooperState.MOVING);

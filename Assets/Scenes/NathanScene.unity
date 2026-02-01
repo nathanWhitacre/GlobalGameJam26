@@ -409,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendlyTrooperPrefab: {fileID: 6733394935465669039, guid: 50cc33a9428ef5943835d10b9394a926, type: 3}
   enemyTrooperPrefab: {fileID: 6733394935465669039, guid: 5c5221d8455f01647af459e06c7f6372, type: 3}
-  startingFriendlyTrooperCount: 20
+  startingFriendlyTrooperCount: 1
   startingFriendlyTrooperPosition: {x: -20, y: 0.5, z: 0}
   friendlyTroopers: []
   enemyTroopers: []
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257ff1e904906644e8df41ec2c0d3f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveTrooperCount: 5
+  waveTrooperCount: 1
   wavePosition: {x: 20, y: 0.5, z: 0}
   waveSpawnDelay: 5
 --- !u!1 &1627670361

@@ -9,8 +9,14 @@ public class TrooperCombat : MonoBehaviour
     [SerializeField] private float maxFightRadius;
     [SerializeField] private float minFightRadius;
 
+    [SerializeField] private GameObject rifleHitVFX;
+    [SerializeField] private float rifleHitChance;
+    [SerializeField] private float minRifleWindup;
+    [SerializeField] private float maxRifleWindup;
+
     [SerializeField] private GameObject targetOpponent;
     private float currentFightRadius;
+    private float currentRifleWindup;
 
     private float shootTimer;
 
@@ -22,6 +28,7 @@ public class TrooperCombat : MonoBehaviour
         manager = GetComponent<TrooperManager>();
         targetOpponent = null;
         RandomizeFightRange();
+        RandomizeRifleWindupTime();
     }
 
     // Update is called once per frame
@@ -93,7 +100,7 @@ public class TrooperCombat : MonoBehaviour
     {
         if (manager.GetCurrentState() != TrooperManager.TrooperState.FIGHTING)
         {
-            shootTimer = currentFightRadius;
+            shootTimer = currentRifleWindup;
             return;
         }
 
@@ -102,11 +109,27 @@ public class TrooperCombat : MonoBehaviour
             shootTimer -= Time.deltaTime;
             if (shootTimer <= 0f)
             {
-                shootTimer = currentFightRadius;
-                TeamManager.instance.GetTrooperList(TeamManager.instance.GetOpposingTeam(manager.GetTeam())).Remove(targetOpponent);
-                Destroy(targetOpponent);
+                RandomizeRifleWindupTime();
+                shootTimer = currentRifleWindup;
+                FireRifle();
             }
         }
+    }
+
+
+
+    private void FireRifle()
+    {
+        if (targetOpponent == null) return;
+        bool hit = targetOpponent.GetComponent<TrooperManager>().trooperHealth.Hit(rifleHitChance);
+        Vector3 hitPosition = targetOpponent.transform.position;
+        if (!hit)
+        {
+            hitPosition += manager.GetDirectionToTarget(targetOpponent.transform.position) * (2f + Random.value * 8f);
+            hitPosition += new Vector3((-4f + Random.value * 4f), 0f, (-4f + Random.value * 4f));
+        }
+        GameObject hitVFX = Instantiate(rifleHitVFX, hitPosition, Quaternion.identity);
+        Destroy(hitVFX, 1f);
     }
 
 
@@ -115,6 +138,12 @@ public class TrooperCombat : MonoBehaviour
     {
         float random = Random.value;
         currentFightRadius = Mathf.Lerp(minFightRadius, maxFightRadius, random);
+    }
+
+    private void RandomizeRifleWindupTime()
+    {
+        float random = Random.value;
+        currentRifleWindup = Mathf.Lerp(minRifleWindup, maxRifleWindup, random);
     }
 
 

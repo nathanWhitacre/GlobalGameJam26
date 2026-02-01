@@ -6,6 +6,7 @@ public class TrooperManager : MonoBehaviour
     [SerializeField] private TeamManager.Team team;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [HideInInspector] public HealthScript trooperHealth;
     [HideInInspector] public TroopMovement trooperMovement;
     [HideInInspector] public TrooperCombat trooperCombat;
 
@@ -16,6 +17,7 @@ public class TrooperManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        trooperHealth = GetComponent<HealthScript>();
         trooperMovement = GetComponent<TroopMovement>();
         trooperCombat = GetComponent<TrooperCombat>();
         Vector3 positionOrder = (team == TeamManager.Team.FRIENDLY) ? (InputManager.instance.GetLatestOrdersFromHigh()) :
@@ -70,6 +72,14 @@ public class TrooperManager : MonoBehaviour
     {
         currentState = state;
         return currentState;
+    }
+
+
+
+    public Vector3 GetDirectionToTarget(Vector3 target)
+    {
+        Vector3 dir = target - transform.position;
+        return Vector3.Normalize(dir);
     }
 
 
