@@ -514,7 +514,7 @@ MonoBehaviour:
   gasResistVariation: 1
   inGas: 0
   inGasRecovery: 0
-  deathTimeVariability: 0
+  deathTimeVariability: 0.1
 --- !u!114 &3169573976869883748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   accelerationRate: 0.35
   defaultTargetPosition: {x: 0, y: 0.5, z: 0}
   maxPositionOrderOffset: 1.5
-  addedPositionOrderOffsetPerAlly: 0.05
+  addedPositionOrderOffsetPerAlly: 0.075
   targetPositionRadius: 0.25
   minRetreatAngle: 90
 --- !u!114 &1830823547533262438

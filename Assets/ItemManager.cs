@@ -12,6 +12,10 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private Vector3 enemyGasBombSpawnTopRight;
     private float enemyGasBombSpawnTimer;
 
+    [SerializeField] private int startingGasBombs;
+    [SerializeField] public int maxGasBombs;
+    [HideInInspector] public int currentGasBombs;
+
 
 
     [SerializeField] private GameObject fragPrefab;
@@ -21,6 +25,20 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private Vector3 enemyFragSpawnBottomLeft;
     [SerializeField] private Vector3 enemyFragSpawnTopRight;
     private float enemyFragSpawnTimer;
+
+    [SerializeField] private int startingFrags;
+    [SerializeField] public int maxFrags;
+    [HideInInspector] public int currentFrags;
+
+
+    [SerializeField] private int startingBarrages;
+    [SerializeField] public int maxBarrages;
+    [HideInInspector] public int currentBarrages;
+
+
+    [SerializeField] private int startingReinforcements;
+    [SerializeField] public int maxReinforcements;
+    [HideInInspector] public int currentReinforcements;
 
 
 
@@ -36,6 +54,11 @@ public class ItemManager : MonoBehaviour
     {
         enemyGasBombSpawnTimer = Mathf.Lerp(enemyGasBombSpawnMinDelay, enemyGasBombSpawnMaxDelay, Random.value);
         enemyFragSpawnTimer = Mathf.Lerp(enemyFragSpawnMinDelay, enemyFragSpawnMaxDelay, Random.value);
+
+        currentGasBombs = startingGasBombs;
+        currentFrags = startingFrags;
+        currentBarrages = startingBarrages;
+        currentReinforcements = startingReinforcements;
     }
 
     // Update is called once per frame
@@ -75,6 +98,9 @@ public class ItemManager : MonoBehaviour
         float xPoint = Mathf.Lerp(enemyGasBombSpawnBottomLeft.x, enemyGasBombSpawnTopRight.x, Random.value);
         float zPoint = Mathf.Lerp(enemyGasBombSpawnBottomLeft.z, enemyGasBombSpawnTopRight.z, Random.value);
         Vector3 spawnPoint = new Vector3(xPoint, 0.5f, zPoint);
+
+        GameObject rightMostTrooper = TeamManager.instance.GetRightMostTrooper(TeamManager.Team.FRIENDLY);
+        if (rightMostTrooper != null) spawnPoint += rightMostTrooper.transform.position;
         return spawnPoint;
     }
 
@@ -85,6 +111,9 @@ public class ItemManager : MonoBehaviour
         float xPoint = Mathf.Lerp(enemyFragSpawnBottomLeft.x, enemyFragSpawnTopRight.x, Random.value);
         float zPoint = Mathf.Lerp(enemyFragSpawnBottomLeft.z, enemyFragSpawnTopRight.z, Random.value);
         Vector3 spawnPoint = new Vector3(xPoint, 0.5f, zPoint);
+
+        GameObject rightMostTrooper = TeamManager.instance.GetRightMostTrooper(TeamManager.Team.FRIENDLY);
+        if (rightMostTrooper != null) spawnPoint += rightMostTrooper.transform.position;
         return spawnPoint;
     }
 
@@ -92,6 +121,9 @@ public class ItemManager : MonoBehaviour
 
     public void SpawnGasBomb(Vector3 position, TeamManager.Team team)
     {
+        if (team == TeamManager.Team.ENEMY && !BaseManager.instance.currentBase.isActive) return;
+        if (team == TeamManager.Team.FRIENDLY && currentGasBombs <= 0) return;
+        if (team == TeamManager.Team.FRIENDLY) currentGasBombs--;
         GameObject gasBomb = Instantiate(gasBombPrefab, position, Quaternion.identity);
         gasBomb.GetComponent<GasGrenade>().StartThrow(team);
     }
@@ -100,7 +132,26 @@ public class ItemManager : MonoBehaviour
 
     public void SpawnFrag(Vector3 position, TeamManager.Team team)
     {
+        if (team == TeamManager.Team.ENEMY && !BaseManager.instance.currentBase.isActive) return;
+        if (team == TeamManager.Team.FRIENDLY && currentFrags <= 0) return;
+        if (team == TeamManager.Team.FRIENDLY) currentFrags--;
         GameObject frag = Instantiate(fragPrefab, position, Quaternion.identity);
         frag.GetComponent<FragGrenade>().StartThrow(team);
+    }
+
+
+
+    public void IncrementDifficulty()
+    {
+        if (Random.value <= 0.5f && enemyFragSpawnMinDelay < enemyFragSpawnMaxDelay)
+        {
+            enemyFragSpawnMaxDelay -= 0.05f;
+            enemyFragSpawnMaxDelay = Mathf.Max(enemyFragSpawnMaxDelay, 0.25f);
+        }
+        else
+        {
+            enemyFragSpawnMinDelay -= 0.05f;
+            enemyFragSpawnMinDelay = Mathf.Max(enemyFragSpawnMinDelay, 0.25f);
+        }
     }
 }

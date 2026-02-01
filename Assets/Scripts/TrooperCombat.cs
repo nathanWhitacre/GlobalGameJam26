@@ -47,7 +47,8 @@ public class TrooperCombat : MonoBehaviour
             return;
         }
 
-        if (targetOpponent == null || targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.DEAD)
+        if (targetOpponent == null || targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.DEAD ||
+                                      targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.CAPTIVE)
         {
             targetOpponent = null;
         }
@@ -85,6 +86,7 @@ public class TrooperCombat : MonoBehaviour
         if (manager.GetCurrentState() == TrooperManager.TrooperState.FIGHTING &&
             (targetOpponent == null ||
             targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.DEAD ||
+            targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.CAPTIVE ||
             Vector3.Distance(transform.position, targetOpponent.transform.position) > maxFightRadius))
         {
             manager.trooperMovement.SetCurrentTargetPositionToOrder(true);
@@ -95,6 +97,7 @@ public class TrooperCombat : MonoBehaviour
         // Enter fighting
         if (targetOpponent != null &&
             targetOpponent.GetComponent<TrooperManager>().GetCurrentState() != TrooperManager.TrooperState.DEAD &&
+            targetOpponent.GetComponent<TrooperManager>().GetCurrentState() != TrooperManager.TrooperState.CAPTIVE &&
             (manager.GetCurrentState() == TrooperManager.TrooperState.IDLE || manager.GetCurrentState() == TrooperManager.TrooperState.MOVING) &&
             Vector3.Distance(transform.position, targetOpponent.transform.position) <= currentFightRadius)
         {

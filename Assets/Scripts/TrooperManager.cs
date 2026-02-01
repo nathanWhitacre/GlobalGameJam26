@@ -146,6 +146,7 @@ public class TrooperManager : MonoBehaviour
     public TrooperState SetCurrentState(TrooperState state)
     {
         if (currentState == TrooperState.DEAD) return currentState;
+        if (currentState == TrooperState.CAPTIVE && state != TrooperState.DEAD) return currentState;
         currentState = state;
         return currentState;
     }
@@ -155,6 +156,7 @@ public class TrooperManager : MonoBehaviour
     public TrooperState SetCurrentState(TrooperState state, bool ignoreDead, bool ignoreCaptive)
     {
         if (currentState == TrooperState.DEAD && !ignoreDead) return currentState;
+        if (currentState == TrooperState.CAPTIVE && !ignoreCaptive) return currentState;
         currentState = state;
         return currentState;
     }

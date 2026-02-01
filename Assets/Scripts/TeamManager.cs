@@ -72,17 +72,30 @@ public class TeamManager : MonoBehaviour
 
 
 
-    public void SpawnTrooper(Vector3 position, Team team)
+    public GameObject SpawnTrooper(Vector3 position, Team team)
     {
         GameObject targetTrooperPrefab = GetTrooperPrefab(team);
         GameObject trooper = Instantiate(targetTrooperPrefab, position, Quaternion.identity);
         List<GameObject> targetTroopers = GetTrooperList(team);
         targetTroopers.Add(trooper);
+        return trooper;
     }
 
 
 
-    public void SpawnTrooper(Vector3 position, Team team, float maskChance)
+    public GameObject SpawnTrooper(Vector3 position, Team team, bool isCaptive)
+    {
+        GameObject targetTrooperPrefab = GetTrooperPrefab(team);
+        GameObject trooper = Instantiate(targetTrooperPrefab, position, Quaternion.identity);
+        if (isCaptive) trooper.GetComponent<TrooperManager>().SetCurrentState(TrooperManager.TrooperState.CAPTIVE);
+        //List<GameObject> targetTroopers = GetTrooperList(team);
+        //targetTroopers.Add(trooper);
+        return trooper;
+    }
+
+
+
+    public GameObject SpawnTrooper(Vector3 position, Team team, float maskChance)
     {
         GameObject targetTrooperPrefab = GetTrooperPrefab(team);
         GameObject trooper = Instantiate(targetTrooperPrefab, position, Quaternion.identity);
@@ -92,6 +105,7 @@ public class TeamManager : MonoBehaviour
         }
         List<GameObject> targetTroopers = GetTrooperList(team);
         targetTroopers.Add(trooper);
+        return trooper;
     }
 
 
