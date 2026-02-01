@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     private void UpdateTrooperText()
     {
         int trooperCount = TeamManager.instance.GetTrooperList(TeamManager.Team.FRIENDLY).Count;
-        troopersText.text = "Troopers: " + trooperCount;
+        troopersText.text = "" + trooperCount;
     }
 
     private void UpdateMasksText()
@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         //int trooperCount = TeamManager.instance.GetTrooperList(TeamManager.Team.FRIENDLY).Count;
         //troopersText.text = "Troopers: " + trooperCount;
 
-        grenadesText.text = "Hand Grenades [A]: " + ItemManager.instance.currentFrags + "/" + ItemManager.instance.maxFrags;
+        grenadesText.text = "x  " + ItemManager.instance.currentFrags + " / " + ItemManager.instance.maxFrags;
     }
 
     private void UpdateGasText()
@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
         //int trooperCount = TeamManager.instance.GetTrooperList(TeamManager.Team.FRIENDLY).Count;
         //troopersText.text = "Troopers: " + trooperCount;
 
-        gasText.text = "Poison Gas [S]: " + ItemManager.instance.currentGasBombs + "/" + ItemManager.instance.maxGasBombs;
+        gasText.text = "x  " + ItemManager.instance.currentGasBombs + " / " + ItemManager.instance.maxGasBombs;
     }
 
     private void UpdateBarragesText()
@@ -71,6 +71,6 @@ public class UIManager : MonoBehaviour
 
     private void UpdateReinforcementsText()
     {
-        reinforcementsText.text = "Reinforcements [R]: " + ItemManager.instance.currentReinforcements + "/" + ItemManager.instance.maxReinforcements;
+        reinforcementsText.text = "x  " + ItemManager.instance.currentReinforcements + " / " + ItemManager.instance.maxReinforcements;
     }
 }
