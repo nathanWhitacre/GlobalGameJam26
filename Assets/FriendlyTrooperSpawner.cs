@@ -12,6 +12,10 @@ public class FriendlyTrooperSpawner : MonoBehaviour
     [SerializeField] private int reinforcementWaveCount;
     [SerializeField] private Vector3 wavePosition;
 
+    [SerializeField] private AudioSource whistle;
+
+
+
     private void Awake()
     {
         instance = this;
@@ -35,6 +39,7 @@ public class FriendlyTrooperSpawner : MonoBehaviour
     {
         if (ItemManager.instance.currentReinforcements <= 0) return;
         ItemManager.instance.currentReinforcements--;
+        whistle.Play();
         StartCoroutine(SpawnReinforcementsCoroutine());
     }
 

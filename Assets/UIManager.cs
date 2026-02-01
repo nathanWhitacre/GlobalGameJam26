@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
     {
         //int trooperCount = TeamManager.instance.GetTrooperList(TeamManager.Team.FRIENDLY).Count;
         //troopersText.text = "Troopers: " + trooperCount;
+
+        masksText.text = "" + ItemManager.instance.currentMasks;
     }
 
     private void UpdateGrenadesText()

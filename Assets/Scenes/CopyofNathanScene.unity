@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 47c110211145678408edbeaf9a8dad1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -656,7 +656,7 @@ SpriteRenderer:
   m_SortingLayerID: -1677566993
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: baff40e8b8d0a5942bab73d04b785527, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de6d4c7c2fb315342b19032b02c2c245, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -830,9 +830,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1639445163000739036, guid: 7db104ef293a5df40bd2f6b239cb3764, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639445163000739036, guid: 7db104ef293a5df40bd2f6b239cb3764, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 2228092503276632482, guid: 7db104ef293a5df40bd2f6b239cb3764, type: 3}
       propertyPath: m_Name
       value: UI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151162050432515357, guid: 7db104ef293a5df40bd2f6b239cb3764, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151162050432515357, guid: 7db104ef293a5df40bd2f6b239cb3764, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 9011512742142597992, guid: 7db104ef293a5df40bd2f6b239cb3764, type: 3}
       propertyPath: m_Pivot.x
