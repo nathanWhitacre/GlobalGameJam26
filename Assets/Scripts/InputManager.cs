@@ -33,6 +33,16 @@ public class InputManager : MonoBehaviour
             HandleLeftClick();
         }
 
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            HandleGasBomb();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            HandleReinforcement();
+        }
+
         transform.position = GetLatestOrdersFromHigh();
     }
 
@@ -50,6 +60,32 @@ public class InputManager : MonoBehaviour
             latestOrdersFromHigh = Vector3.zero;
         }
         TeamManager.instance.GivePositionOrders(latestOrdersFromHigh, TeamManager.Team.FRIENDLY);
+    }
+
+
+
+    private void HandleGasBomb()
+    {
+        Vector3 gasBombPosition = Vector3.zero;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        {
+            gasBombPosition = hit.point;
+        }
+        ItemManager.instance.SpawnGasBomb(gasBombPosition, TeamManager.Team.FRIENDLY);
+
+        //TEMP MASK TEST
+        foreach (GameObject trooper in TeamManager.instance.GetTrooperList(TeamManager.Team.FRIENDLY))
+        {
+            trooper.GetComponent<TrooperManager>().EquipMask(true);
+        }
+    }
+
+
+
+    private void HandleReinforcement()
+    {
+        FriendlyTrooperSpawner.instance.SpawnReinforcementWave();
     }
 
 

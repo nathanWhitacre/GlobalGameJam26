@@ -359,7 +359,9 @@ GameObject:
   - component: {fileID: 1383619760}
   - component: {fileID: 1383619759}
   - component: {fileID: 1383619761}
+  - component: {fileID: 1383619763}
   - component: {fileID: 1383619762}
+  - component: {fileID: 1383619764}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -409,8 +411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendlyTrooperPrefab: {fileID: 6733394935465669039, guid: 50cc33a9428ef5943835d10b9394a926, type: 3}
   enemyTrooperPrefab: {fileID: 6733394935465669039, guid: 5c5221d8455f01647af459e06c7f6372, type: 3}
-  startingFriendlyTrooperCount: 1
-  startingFriendlyTrooperPosition: {x: -20, y: 0.5, z: 0}
   friendlyTroopers: []
   enemyTroopers: []
 --- !u!114 &1383619762
@@ -425,9 +425,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257ff1e904906644e8df41ec2c0d3f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveTrooperCount: 1
+  waveTrooperCount: 15
   wavePosition: {x: 20, y: 0.5, z: 0}
-  waveSpawnDelay: 5
+  waveSpawnDelay: 6
+  maskedEnemySpawnChance: 0.3
+--- !u!114 &1383619763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383619758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871fe5d8d1404d44d91e77eb4833bab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveTrooperCount: 5
+  reinforcementWaveCount: 3
+  wavePosition: {x: -20, y: 0.5, z: 0}
+--- !u!114 &1383619764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383619758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320c5f504f1cad3459d6e3f9bc932f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gasBombPrefab: {fileID: 9048781386148505919, guid: 9deedc0601ea60249902437ae8451b3a, type: 3}
+  enemyGasBombSpawnDelay: 4
+  enemyGasBombSpawnBottomLeft: {x: -15, y: 0.5, z: -9}
+  enemyGasBombSpawnTopRight: {x: 15, y: 0.5, z: 9}
 --- !u!1 &1627670361
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 1648912732}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 13, z: -7}
+  m_LocalPosition: {x: 0, y: 26, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

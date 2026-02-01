@@ -47,6 +47,11 @@ public class TrooperCombat : MonoBehaviour
             return;
         }
 
+        if (targetOpponent == null || targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.DEAD)
+        {
+            targetOpponent = null;
+        }
+
         // check opponent staying or escaped radius
         if (targetOpponent != null && Vector3.Distance(transform.position, targetOpponent.transform.position) <= aggroRadius)
         {
@@ -78,7 +83,9 @@ public class TrooperCombat : MonoBehaviour
     {
         // Exit fighting
         if (manager.GetCurrentState() == TrooperManager.TrooperState.FIGHTING &&
-            (targetOpponent == null || Vector3.Distance(transform.position, targetOpponent.transform.position) > maxFightRadius))
+            (targetOpponent == null ||
+            targetOpponent.GetComponent<TrooperManager>().GetCurrentState() == TrooperManager.TrooperState.DEAD ||
+            Vector3.Distance(transform.position, targetOpponent.transform.position) > maxFightRadius))
         {
             manager.trooperMovement.SetCurrentTargetPositionToOrder(true);
             manager.SetCurrentState(TrooperManager.TrooperState.IDLE);
@@ -87,6 +94,7 @@ public class TrooperCombat : MonoBehaviour
         
         // Enter fighting
         if (targetOpponent != null &&
+            targetOpponent.GetComponent<TrooperManager>().GetCurrentState() != TrooperManager.TrooperState.DEAD &&
             (manager.GetCurrentState() == TrooperManager.TrooperState.IDLE || manager.GetCurrentState() == TrooperManager.TrooperState.MOVING) &&
             Vector3.Distance(transform.position, targetOpponent.transform.position) <= currentFightRadius)
         {
@@ -121,6 +129,7 @@ public class TrooperCombat : MonoBehaviour
     private void FireRifle()
     {
         if (targetOpponent == null) return;
+        if (manager.GetAnimator() != null) manager.GetAnimator().SetTrigger("Shoot");
         bool hit = targetOpponent.GetComponent<TrooperManager>().trooperHealth.Hit(rifleHitChance);
         Vector3 hitPosition = targetOpponent.transform.position;
         if (!hit)
@@ -130,6 +139,7 @@ public class TrooperCombat : MonoBehaviour
         }
         GameObject hitVFX = Instantiate(rifleHitVFX, hitPosition, Quaternion.identity);
         Destroy(hitVFX, 1f);
+        //manager.GetAnimator().ResetTrigger("Shoot");
     }
 
 

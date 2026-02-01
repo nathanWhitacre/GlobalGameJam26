@@ -9,8 +9,8 @@ public class HealthScript : MonoBehaviour
     [SerializeField] private float gasResistVariation; // true max resistance is (gasResistMax +- gasResistVariation)
     private float gasResist;    // Remaining value of gas resistance meter in seconds
     private float gasRecoveryStart;
-    private bool inGas;
-    private bool inGasRecovery;
+    [SerializeField] private bool inGas;
+    [SerializeField] private bool inGasRecovery;
     [SerializeField] private float deathTimeVariability;   // Necessary to add slight random offset in death time
 
     private TrooperManager manager;
@@ -67,7 +67,10 @@ public class HealthScript : MonoBehaviour
     {
         // Do something here
         TeamManager.instance.GetTrooperList(manager.GetTeam()).Remove(gameObject);
-        Destroy(gameObject);
+        manager.SetCurrentState(TrooperManager.TrooperState.DEAD);
+        GetComponent<Collider>().enabled = false;
+        manager.spriteRenderer.sortingOrder = 0;
+        //Destroy(gameObject);
     }
 
     /// <summary>
@@ -100,6 +103,8 @@ public class HealthScript : MonoBehaviour
     {
         inGas = true;
         inGasRecovery = false;
+        manager.SetCurrentState(TrooperManager.TrooperState.FLEEING);
+        manager.trooperMovement.SetCurrentTargetPositionToOrder(true);
     }
 
     /// <summary>

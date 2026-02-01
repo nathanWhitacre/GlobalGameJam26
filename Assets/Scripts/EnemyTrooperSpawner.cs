@@ -8,6 +8,7 @@ public class EnemyTrooperSpawner : MonoBehaviour
     [SerializeField] private int waveTrooperCount;
     [SerializeField] private Vector3 wavePosition;
     [SerializeField] private float waveSpawnDelay;
+    [SerializeField] private float maskedEnemySpawnChance;
 
     private float waveSpawnTimer;
 
@@ -37,7 +38,7 @@ public class EnemyTrooperSpawner : MonoBehaviour
             if (waveSpawnTimer <= 0f)
             {
                 waveSpawnTimer = waveSpawnDelay;
-                TeamManager.instance.SpawnTrooperWave(wavePosition, waveTrooperCount, TeamManager.Team.ENEMY);
+                TeamManager.instance.SpawnTrooperWave(wavePosition, waveTrooperCount, TeamManager.Team.ENEMY, maskedEnemySpawnChance);
             }
         }
     }

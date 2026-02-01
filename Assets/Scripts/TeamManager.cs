@@ -10,9 +10,6 @@ public class TeamManager : MonoBehaviour
     [SerializeField] private GameObject friendlyTrooperPrefab;
     [SerializeField] private GameObject enemyTrooperPrefab;
 
-    [SerializeField] private int startingFriendlyTrooperCount;
-    [SerializeField] private Vector3 startingFriendlyTrooperPosition;
-
     [SerializeField] private List<GameObject> friendlyTroopers;
     [SerializeField] private List<GameObject> enemyTroopers;
 
@@ -28,7 +25,7 @@ public class TeamManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpawnTrooperWave(startingFriendlyTrooperPosition, startingFriendlyTrooperCount, Team.FRIENDLY);
+        //SpawnTrooperWave(startingFriendlyTrooperPosition, startingFriendlyTrooperCount, Team.FRIENDLY);
     }
 
 
@@ -63,10 +60,36 @@ public class TeamManager : MonoBehaviour
 
 
 
+    public void SpawnTrooperWave(Vector3 position, int trooperCount, Team team, float maskChance)
+    {
+        for (int i = 0; i < trooperCount; i++)
+        {
+            Vector3 offsetPosition = position;
+            offsetPosition.z = -i;
+            SpawnTrooper(offsetPosition, team, maskChance);
+        }
+    }
+
+
+
     public void SpawnTrooper(Vector3 position, Team team)
     {
         GameObject targetTrooperPrefab = GetTrooperPrefab(team);
         GameObject trooper = Instantiate(targetTrooperPrefab, position, Quaternion.identity);
+        List<GameObject> targetTroopers = GetTrooperList(team);
+        targetTroopers.Add(trooper);
+    }
+
+
+
+    public void SpawnTrooper(Vector3 position, Team team, float maskChance)
+    {
+        GameObject targetTrooperPrefab = GetTrooperPrefab(team);
+        GameObject trooper = Instantiate(targetTrooperPrefab, position, Quaternion.identity);
+        if (Random.value <= maskChance)
+        {
+            trooper.GetComponent<TrooperManager>().EquipMask(true);
+        }
         List<GameObject> targetTroopers = GetTrooperList(team);
         targetTroopers.Add(trooper);
     }

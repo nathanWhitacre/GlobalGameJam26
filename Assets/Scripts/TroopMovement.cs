@@ -7,11 +7,13 @@ public class TroopMovement : MonoBehaviour
 
     [SerializeField] private Vector3 defaultTargetPosition;
     [SerializeField] private float maxPositionOrderOffset;
+    [SerializeField] private float addedPositionOrderOffsetPerAlly;
     [SerializeField] private float targetPositionRadius;
 
     private Vector3 currentPositionOrder;
     private Vector3 positionOrderOffset;
     private Vector3 currentTargetPosition;
+    private float currentMaxPositionOrderOffset;
 
     [SerializeField] private float minRetreatAngle;
 
@@ -99,7 +101,7 @@ public class TroopMovement : MonoBehaviour
 
     public void GivePositionOrder(Vector3 position)
     {
-        if (manager != null && manager.GetCurrentState() == TrooperManager.TrooperState.FIGHTING)
+        if (manager != null && (manager.GetCurrentState() == TrooperManager.TrooperState.FIGHTING || manager.trooperCombat.GetTargetOpponent() != null))
         {
             float angle = Vector3.Angle(manager.GetDirectionToTarget(position), manager.GetDirectionToTarget(manager.trooperCombat.GetTargetOpponent().transform.position));
             if (angle >= minRetreatAngle)
@@ -141,8 +143,10 @@ public class TroopMovement : MonoBehaviour
 
     private void GeneratePositionOrderOffset()
     {
-        positionOrderOffset.x = -maxPositionOrderOffset + (Random.value * 2f * maxPositionOrderOffset);
-        positionOrderOffset.z = -maxPositionOrderOffset + (Random.value * 2f * maxPositionOrderOffset);
+        currentMaxPositionOrderOffset = maxPositionOrderOffset;
+        if (manager != null) currentMaxPositionOrderOffset = maxPositionOrderOffset + (TeamManager.instance.GetTrooperList(manager.GetTeam()).Count * addedPositionOrderOffsetPerAlly);
+        positionOrderOffset.x = -currentMaxPositionOrderOffset + (Random.value * 2f * currentMaxPositionOrderOffset);
+        positionOrderOffset.z = -currentMaxPositionOrderOffset + (Random.value * 2f * currentMaxPositionOrderOffset);
     }
 
 

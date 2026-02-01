@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2261886583264044218}
   - component: {fileID: 4057318916250449133}
+  - component: {fileID: 4884039407126135095}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1677566993
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4dc435a6cf2abd44d974d61ec9e91cb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -87,6 +88,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4884039407126135095
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086613918991906818}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 91b09e46cc77ac04b83dcbee927fb2cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6733394935465669039
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +123,7 @@ GameObject:
   - component: {fileID: 5087644432445172111}
   - component: {fileID: 3169573976869883748}
   - component: {fileID: 5680391547531450629}
+  - component: {fileID: 110641188719245891}
   m_Layer: 7
   m_Name: EnemyTrooper
   m_TagString: Untagged
@@ -136,10 +160,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
+  hasMask: 0
   spriteRenderer: {fileID: 4057318916250449133}
+  spriteAnimator: {fileID: 4884039407126135095}
   trooperHealth: {fileID: 0}
   trooperMovement: {fileID: 0}
   trooperCombat: {fileID: 0}
+  defaultController: {fileID: 9100000, guid: 4e60fad16f51eee4b94a76d918cb5408, type: 2}
+  maskController: {fileID: 9100000, guid: 91b09e46cc77ac04b83dcbee927fb2cf, type: 2}
   currentState: 0
 --- !u!114 &5087644432445172111
 MonoBehaviour:
@@ -153,8 +181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d013423e6df8d04ea6ea4268d04914c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gasResistMax: 4
+  gasResistMax: 2
   gasResistVariation: 1
+  inGas: 0
+  inGasRecovery: 0
   deathTimeVariability: 0.3
 --- !u!114 &3169573976869883748
 MonoBehaviour:
@@ -168,10 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a8b346f6eb014abeb02b9ed409e6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 2.75
   accelerationRate: 0.35
   defaultTargetPosition: {x: 0, y: 0.5, z: 0}
-  maxPositionOrderOffset: 2
+  maxPositionOrderOffset: 25
+  addedPositionOrderOffsetPerAlly: 0
   targetPositionRadius: 0.25
   minRetreatAngle: 90
 --- !u!114 &5680391547531450629
@@ -190,7 +221,28 @@ MonoBehaviour:
   maxFightRadius: 12
   minFightRadius: 7
   rifleHitVFX: {fileID: 7443988584666738677, guid: 96ac39895005bfe41b7232816fa3b3e9, type: 3}
-  rifleHitChance: 0
-  minRifleWindup: 0.05
-  maxRifleWindup: 0.1
+  rifleHitChance: 0.25
+  minRifleWindup: 0.75
+  maxRifleWindup: 1.5
   targetOpponent: {fileID: 0}
+--- !u!65 &110641188719245891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733394935465669039}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.1, z: 2}
+  m_Center: {x: 0, y: 0.1, z: 0}
