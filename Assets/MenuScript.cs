@@ -9,6 +9,7 @@ public class MenuScript : MonoBehaviour
     public GameObject Button2;
     public GameObject Button3;
     public GameObject Instructions;
+    public AudioSource UIsound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void OnPlayButton ()
     {
@@ -43,5 +44,9 @@ public class MenuScript : MonoBehaviour
         Button3.SetActive(true);
         Instructions.SetActive(false);
 
+    }
+    public void PlaySound ()
+    {
+        UIsound.Play();
     }
 }
