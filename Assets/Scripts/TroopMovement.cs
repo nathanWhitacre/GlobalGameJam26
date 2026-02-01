@@ -9,16 +9,14 @@ public class TroopMovement : MonoBehaviour
     [SerializeField] private float maxPositionOrderOffset;
     [SerializeField] private float targetPositionRadius;
 
-    [SerializeField] private Vector3 currentPositionOrder;
+    private Vector3 currentPositionOrder;
     private Vector3 positionOrderOffset;
-    [SerializeField] private Vector3 currentTargetPosition;
+    private Vector3 currentTargetPosition;
 
     [SerializeField] private float minRetreatAngle;
 
     private Vector3 velocity;
     private Vector3 targetVelocity;
-
-    //private bool isMoving = false;
 
     private TrooperManager manager;
     
@@ -43,20 +41,6 @@ public class TroopMovement : MonoBehaviour
 
     private void UpdateTargetVelocity()
     {
-        /*
-        if (!isMoving && !HasReachedTargetPosition())
-        {
-            StartMoving();
-        }
-
-        if (isMoving) targetVelocity = moveSpeed * GetDirectionToTarget(currentTargetPosition);
-
-        if (isMoving && HasReachedTargetPosition())
-        {
-            StopMoving();
-        }
-        */
-
         if (manager.GetCurrentState() == TrooperManager.TrooperState.IDLE && !HasReachedTargetPosition())
         {
             manager.SetCurrentState(TrooperManager.TrooperState.MOVING);
@@ -79,14 +63,6 @@ public class TroopMovement : MonoBehaviour
 
     private void Move()
     {
-        /*
-        if (!isMoving)
-        {
-            velocity = Vector3.zero;
-            return;
-        }
-        */
-
         if (!(manager.GetCurrentState() == TrooperManager.TrooperState.MOVING ||
               manager.GetCurrentState() == TrooperManager.TrooperState.FLEEING))
         {
@@ -101,22 +77,6 @@ public class TroopMovement : MonoBehaviour
         }
         transform.position += (velocity * Time.deltaTime);
     }
-
-
-
-    /*
-    private void StopMoving()
-    {
-        isMoving = false;
-    }
-
-
-
-    private void StartMoving()
-    {
-        isMoving = true;
-    }
-    */
 
 
 

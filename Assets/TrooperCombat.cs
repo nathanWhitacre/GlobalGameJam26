@@ -10,7 +10,7 @@ public class TrooperCombat : MonoBehaviour
     [SerializeField] private float minFightRadius;
 
     [SerializeField] private GameObject targetOpponent;
-    [SerializeField] private float currentFightRadius;
+    private float currentFightRadius;
 
     private float shootTimer;
 
