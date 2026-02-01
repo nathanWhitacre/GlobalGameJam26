@@ -155,7 +155,7 @@ public class EnemyBase : MonoBehaviour
         {
             prisoner.GetComponent<TrooperManager>().SetCurrentState(TrooperManager.TrooperState.IDLE, false, true);
             List<GameObject> targetTroopers = TeamManager.instance.GetTrooperList(TeamManager.Team.FRIENDLY);
-            targetTroopers.Add(prisoner);
+            if (prisoner.GetComponent<TrooperManager>().GetCurrentState() != TrooperManager.TrooperState.DEAD) targetTroopers.Add(prisoner);
             prisoner.GetComponent<TroopMovement>().SetCurrentTargetPositionToOrder(true);
         }
         prisonerList.Clear();
