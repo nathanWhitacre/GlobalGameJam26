@@ -71,6 +71,10 @@ public class HealthScript : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         manager.spriteRenderer.sortingOrder = 0;
         if (manager.deathSFX != null) manager.deathSFX.Play();
+        if (manager.HasMask() && manager.GetTeam() == TeamManager.Team.FRIENDLY)
+        {
+            ItemManager.instance.currentMasks--;
+        }
         //Destroy(gameObject);
     }
 
