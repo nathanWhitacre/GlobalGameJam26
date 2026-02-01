@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using static TeamManager;
 
@@ -141,9 +142,25 @@ public class TrooperCombat : MonoBehaviour
             hitPosition += manager.GetDirectionToTarget(targetOpponent.transform.position) * (2f + Random.value * 8f);
             hitPosition += new Vector3((-4f + Random.value * 4f), 0f, (-4f + Random.value * 4f));
         }
+        else
+        {
+            if (targetOpponent.GetComponent<TrooperManager>().HasMask() && !manager.HasMask())
+            {
+                manager.EquipMask(true);
+            }
+            if (Random.value <= 0.075f)
+            {
+                ItemManager.instance.currentFrags++;
+                ItemManager.instance.currentFrags = Mathf.Min(ItemManager.instance.currentFrags, ItemManager.instance.maxFrags);
+            }
+            if (Random.value <= 0.1f)
+            {
+                ItemManager.instance.currentGasBombs++;
+                ItemManager.instance.currentGasBombs = Mathf.Min(ItemManager.instance.currentGasBombs, ItemManager.instance.maxGasBombs);
+            }
+        }
         GameObject hitVFX = Instantiate(rifleHitVFX, hitPosition, Quaternion.identity);
         Destroy(hitVFX, 1f);
-        //manager.GetAnimator().ResetTrigger("Shoot");
     }
 
 

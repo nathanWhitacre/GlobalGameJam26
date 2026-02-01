@@ -137,7 +137,7 @@ MonoBehaviour:
   enemySpawnPoint3: {x: -5, y: 0.5, z: -8}
   farSpawnOffset: -50
   prisonerCount: 10
-  prisonerSpawnPoint: {x: 7, y: 0.5, z: 0}
+  prisonerSpawnPoint: {x: 5, y: 0.5, z: 0}
   prisonerSpawnOffset: 3
   farSpawnDeactivationDistance: -70
   deactivationDistance: -25

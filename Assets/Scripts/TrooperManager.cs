@@ -180,6 +180,17 @@ public class TrooperManager : MonoBehaviour
 
     public void EquipMask(bool equip)
     {
+        if (team == TeamManager.Team.FRIENDLY)
+        {
+            if (equip)
+            {
+                ItemManager.instance.currentMasks++;
+            }
+            else
+            {
+                //ItemManager.instance.currentMasks--;
+            }
+        }
         hasMask = equip;
         if (spriteAnimator != null) spriteAnimator.runtimeAnimatorController = (hasMask) ? maskController : defaultController;
     }

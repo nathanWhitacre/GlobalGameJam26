@@ -145,6 +145,21 @@ public class EnemyBase : MonoBehaviour
         hasSpawnedNextBase = true;
         //FriendlyTrooperSpawner.instance.SpawnReinforcementWave(true);
         LiberatePrisoners();
+
+        ItemManager.instance.currentFrags++;
+        ItemManager.instance.currentFrags = Mathf.Min(ItemManager.instance.currentFrags, ItemManager.instance.maxFrags);
+        ItemManager.instance.currentGasBombs++;
+        ItemManager.instance.currentGasBombs = Mathf.Min(ItemManager.instance.currentGasBombs, ItemManager.instance.maxGasBombs);
+        if (Random.value <= 0.5f)
+        {
+            ItemManager.instance.currentFrags++;
+            ItemManager.instance.currentFrags = Mathf.Min(ItemManager.instance.currentFrags, ItemManager.instance.maxFrags);
+        }
+        if (Random.value <= 0.5f)
+        {
+            ItemManager.instance.currentGasBombs++;
+            ItemManager.instance.currentGasBombs = Mathf.Min(ItemManager.instance.currentGasBombs, ItemManager.instance.maxGasBombs);
+        }
     }
 
 
