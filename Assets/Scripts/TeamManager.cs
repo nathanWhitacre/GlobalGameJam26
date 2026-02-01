@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class TeamManager : MonoBehaviour
 {
@@ -33,7 +34,10 @@ public class TeamManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GetTrooperList(Team.FRIENDLY).Count <= 0)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
 

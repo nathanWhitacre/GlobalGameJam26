@@ -12,8 +12,10 @@ public class GameOverScript : MonoBehaviour
     {
         Application.Quit();
     }
+    /*
     public void PlaySound()
     {
         UIsound.Play();
     }
+    */
 }
