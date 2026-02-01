@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
-using UnityEditor.Animations;
+
+
 using UnityEngine;
 
 public class TrooperManager : MonoBehaviour
@@ -14,8 +14,8 @@ public class TrooperManager : MonoBehaviour
     [HideInInspector] public TroopMovement trooperMovement;
     [HideInInspector] public TrooperCombat trooperCombat;
 
-    [SerializeField] private AnimatorController defaultController;
-    [SerializeField] private AnimatorController maskController;
+    [SerializeField] private RuntimeAnimatorController defaultController;
+    [SerializeField] private RuntimeAnimatorController maskController;
 
     [SerializeField] private TrooperState currentState;
 
